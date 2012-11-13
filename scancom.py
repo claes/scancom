@@ -29,7 +29,7 @@ def main():
 	for file_to_send in files_to_send:
 		mime_type = mimetypes.guess_type(file_to_send)
 		googleDriveClient.uploadFile(driveService, file_to_send, mime_type[0], file_to_send, True, config.OCR_LANGUAGE)
-		emailClient.sendEmail('claes@holmerson.net', ['claes@holmerson.net'], file_to_send, file_to_send, [file_to_send])
+		emailClient.sendEmail(config.TEST_SENDER, [config.TEST_RECEIVER], file_to_send, file_to_send, [file_to_send])
 
 class EmailClient:
 
@@ -78,9 +78,8 @@ class GoogleDriveClient:
 		REDIRECT_URI = 'urn:ietf:wg:oauth:2.0:oob'
 
 		# Run through the OAuth flow and retrieve credentials
-		flow = flow_from_clientsecrets('client_secrets.json',
-									   scope=OAUTH_SCOPE,
-									   redirect_uri=REDIRECT_URI)
+		flow = flow_from_clientsecrets('client_secrets.json', 
+			scope=OAUTH_SCOPE, redirect_uri=REDIRECT_URI)
 									   
 		storage = Storage('credentials.json')
 		credentials = storage.get()
@@ -95,7 +94,6 @@ class GoogleDriveClient:
 		return drive_service
 
 	def uploadFile(self, drive_service, filename, mime_type, title, ocr=True, ocrLanguage = 'en'):
-		# Insert a file
 		media_body = MediaFileUpload(filename, mimetype='text/plain', resumable=True)
 		body = {
 		  'title': title,
