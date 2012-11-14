@@ -1,0 +1,12 @@
+SMTP_SERVER = 'smtp.gmail.com'
+SMTP_PORT = 587
+ 
+EMAIL_USER = 'email account user id'
+EMAIL_PASSWORD = 'email account password'
+
+TEST_SENDER = 'sender@example.com'
+TEST_RECEIVER = 'receiver@example.com'
+
+OCR_LANGUAGE = 'en'
+
+ 
